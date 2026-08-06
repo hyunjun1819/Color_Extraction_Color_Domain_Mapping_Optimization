@@ -166,6 +166,10 @@ RGB 채널 값은 각각 0부터 255 사이의 정수여야 합니다. 그룹명
 
 색상 보정은 촬영 환경의 색편향을 줄이기 위한 일반적인 보정입니다. 카메라 프로파일이나 표준 컬러 차트를 사용하는 계측 수준의 색상 보정을 대신하지는 않습니다.
 
-## 참고 문헌
+## 기술적 근거 및 구현 범위
+
+본 프로그램은 색차 계산에 공개된 CIEDE2000 수학식을 적용했습니다. CIEDE2000 계산 로직은 아래 논문의 수식과 설명을 바탕으로 직접 작성했으며, 논문 저자 또는 외부 공개 구현의 소스코드를 복제하거나 변형하여 포함하지 않았습니다.
+
+대표 색상 후보 추출에는 `extcolors`, RGB에서 CIE Lab으로의 색공간 변환에는 `scikit-image`를 사용합니다. 이미지 처리와 배열 연산에는 각각 `Pillow`와 `NumPy`를 사용합니다. 색상 전처리, 대표 색상 클러스터링, 무채색 우선 판정, 컬러 도메인 매핑과 결과 집계는 이 프로그램의 코드로 구현되어 있습니다.
 
 G. Sharma, W. Wu, E. N. Dalal, “The CIEDE2000 Color-Difference Formula: Implementation Notes, Supplementary Test Data, and Mathematical Observations,” *Color Research & Application*, 30(1), 21–30, 2005. [https://doi.org/10.1002/col.20070](https://doi.org/10.1002/col.20070)
